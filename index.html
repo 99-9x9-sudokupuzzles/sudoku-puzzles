@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1b4c">
+  <meta name="description" content="Sue D. Oku's Symmetrical Puzzle #002 — a free interactive 9x9 Sudoku puzzle.">
+  <title>Sue D. Oku's Symmetrical Puzzle #002</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="hero">
+      <div class="eyebrow">TODAY'S FREE PUZZLE</div>
+      <h1>Sue D. Oku’s <span>Symmetrical Puzzle #002</span></h1>
+      <p class="meta">Medium · 34 clues · 180° rotational symmetry</p>
+    </header>
+
+    <section class="game-card" aria-labelledby="game-title">
+      <h2 id="game-title" class="sr-only">Interactive Sudoku grid</h2>
+      <div id="sudoku-grid" class="sudoku-grid" role="grid" aria-label="Interactive 9 by 9 Sudoku puzzle"></div>
+
+      <div id="status" class="status" aria-live="polite">
+        Select an empty cell, then choose a number.
+      </div>
+
+      <div class="keypad" aria-label="Number keypad">
+        <button type="button" data-number="1">1</button>
+        <button type="button" data-number="2">2</button>
+        <button type="button" data-number="3">3</button>
+        <button type="button" data-number="4">4</button>
+        <button type="button" data-number="5">5</button>
+        <button type="button" data-number="6">6</button>
+        <button type="button" data-number="7">7</button>
+        <button type="button" data-number="8">8</button>
+        <button type="button" data-number="9">9</button>
+      </div>
+
+      <div class="actions">
+        <button type="button" id="erase-btn" class="secondary">Erase</button>
+        <button type="button" id="undo-btn" class="secondary">Undo</button>
+        <button type="button" id="check-btn" class="primary">Check</button>
+        <button type="button" id="reset-btn" class="secondary">Reset</button>
+      </div>
+
+      <p class="keyboard-help">Desktop: you can also use number keys, arrow keys, Backspace/Delete, and Ctrl/Cmd+Z.</p>
+    </section>
+
+    <section class="book-card" aria-label="Sue D. Oku book">
+      <div>
+        <p class="book-kicker">ENJOYED THE CHALLENGE?</p>
+        <h2>99 9x9 Sudoku Puzzles</h2>
+        <p>A progressive collection from Easy to Hard, with solutions.</p>
+      </div>
+      <a class="amazon-button" href="https://www.amazon.com/dp/B0HH83YBGB" target="_blank" rel="noopener noreferrer">
+        View the book on Amazon
+      </a>
+    </section>
+
+    <footer>
+      <strong>Sue D. Oku</strong> · Original Sudoku puzzles & symmetrical challenges
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
