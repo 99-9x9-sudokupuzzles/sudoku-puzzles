@@ -1,29 +1,8 @@
 (function () {
   'use strict';
 
-  const PUZZLE = [
-    0,8,1,3,0,0,0,0,9,
-    0,0,0,0,0,1,0,3,5,
-    5,3,0,6,0,0,0,0,0,
-    0,0,9,0,6,0,7,5,3,
-    6,0,0,8,0,3,0,0,4,
-    1,4,3,0,7,0,6,0,0,
-    0,0,0,0,0,2,0,7,6,
-    7,6,0,5,0,0,0,0,0,
-    4,0,0,0,0,6,5,2,0
-  ];
-
-  const SOLUTION = [
-    2,8,1,3,5,7,4,6,9,
-    9,7,6,2,4,1,8,3,5,
-    5,3,4,6,9,8,2,1,7,
-    8,2,9,1,6,4,7,5,3,
-    6,5,7,8,2,3,1,9,4,
-    1,4,3,9,7,5,6,8,2,
-    3,1,5,4,8,2,9,7,6,
-    7,6,2,5,1,9,3,4,8,
-    4,9,8,7,3,6,5,2,1
-  ];
+  const PUZZLE = [0, 0, 3, 0, 5, 0, 7, 0, 0, 4, 0, 0, 0, 0, 9, 0, 0, 3, 0, 8, 0, 1, 0, 0, 0, 5, 0, 2, 3, 4, 0, 0, 0, 8, 0, 1, 0, 6, 0, 8, 9, 1, 0, 3, 0, 8, 0, 1, 0, 0, 0, 5, 6, 7, 0, 4, 0, 0, 0, 8, 0, 1, 0, 6, 0, 0, 9, 0, 0, 0, 0, 5, 0, 0, 2, 0, 4, 0, 6, 0, 0];
+  const SOLUTION = [1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5, 6, 7, 8, 9, 1, 2, 3, 7, 8, 9, 1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6, 7, 8, 9, 1, 5, 6, 7, 8, 9, 1, 2, 3, 4, 8, 9, 1, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 7, 8, 9, 1, 2, 6, 7, 8, 9, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 5, 6, 7, 8];
 
   function isComplete(values) {
     return values.every(v => Number(v) >= 1 && Number(v) <= 9);
@@ -210,13 +189,13 @@
 
     if (isCorrect(values)) {
       clearWrongMarks();
-      setStatus('Congratulations! You solved Symmetrical Puzzle #002 correctly. 🎉', 'success');
+      setStatus('Congratulations! You solved Symmetrical Puzzle #003 correctly. 🎉', 'success');
     }
   }
 
   function resetPuzzle() {
     const hasProgress = values.some((v, i) => PUZZLE[i] === 0 && v !== 0);
-    if (hasProgress && !window.confirm('Clear all your entries and restart Puzzle #002?')) return;
+    if (hasProgress && !window.confirm('Clear all your entries and restart Puzzle #003?')) return;
 
     for (let i = 0; i < 81; i++) values[i] = PUZZLE[i];
     undoStack.length = 0;
