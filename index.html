@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d1b4c">
-  <meta name="description" content="Sue D. Oku's Symmetrical Puzzle #003 — a free interactive 9x9 Sudoku puzzle.">
-  <title>Sue D. Oku's Symmetrical Puzzle #003</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Sue D. Oku's Symmetrical Puzzle #004 — a free interactive 9x9 Sudoku puzzle.">
+  <title>Sue D. Oku's Symmetrical Puzzle #004</title>
+  <link rel="stylesheet" href="styles.css?v=004">
 </head>
 <body>
   <main class="page-shell">
     <header class="hero">
       <div class="eyebrow">TODAY'S FREE PUZZLE</div>
-      <h1>Sue D. Oku’s <span>Symmetrical Puzzle #003</span></h1>
-      <p class="meta">Medium · 33 clues · 180° rotational symmetry</p>
+      <h1>Sue D. Oku’s <span>Symmetrical Puzzle #004</span></h1>
+      <p class="meta">Medium+ · 31 clues · 180° rotational symmetry</p>
     </header>
 
     <section class="game-card" aria-labelledby="game-title">
@@ -21,7 +21,7 @@
       <div id="sudoku-grid" class="sudoku-grid" role="grid" aria-label="Interactive 9 by 9 Sudoku puzzle"></div>
 
       <div id="status" class="status" aria-live="polite">
-        Select an empty cell, then choose a number.
+        Tap or click any cell. Matching digits are highlighted automatically.
       </div>
 
       <div class="keypad" aria-label="Number keypad">
@@ -43,7 +43,7 @@
         <button type="button" id="reset-btn" class="secondary">Reset</button>
       </div>
 
-      <p class="keyboard-help">Desktop: you can also use number keys, arrow keys, Backspace/Delete, and Ctrl/Cmd+Z.</p>
+      <p class="keyboard-help">New feature: select any filled cell to highlight matching digits, plus its row, column, and 3×3 box.</p>
     </section>
 
     <section class="book-card" aria-label="Sue D. Oku book">
@@ -62,6 +62,6 @@
     </footer>
   </main>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=004"></script>
 </body>
 </html>

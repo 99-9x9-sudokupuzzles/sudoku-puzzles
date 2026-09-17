@@ -1,8 +1,9 @@
+
 (function () {
   'use strict';
 
-  const PUZZLE = [0, 0, 3, 0, 5, 0, 7, 0, 0, 4, 0, 0, 0, 0, 9, 0, 0, 3, 0, 8, 0, 1, 0, 0, 0, 5, 0, 2, 3, 4, 0, 0, 0, 8, 0, 1, 0, 6, 0, 8, 9, 1, 0, 3, 0, 8, 0, 1, 0, 0, 0, 5, 6, 7, 0, 4, 0, 0, 0, 8, 0, 1, 0, 6, 0, 0, 9, 0, 0, 0, 0, 5, 0, 0, 2, 0, 4, 0, 6, 0, 0];
-  const SOLUTION = [1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5, 6, 7, 8, 9, 1, 2, 3, 7, 8, 9, 1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6, 7, 8, 9, 1, 5, 6, 7, 8, 9, 1, 2, 3, 4, 8, 9, 1, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 7, 8, 9, 1, 2, 6, 7, 8, 9, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 5, 6, 7, 8];
+  const PUZZLE = [5, 0, 0, 3, 2, 0, 0, 0, 0, 0, 7, 4, 0, 0, 0, 2, 0, 6, 0, 0, 9, 0, 0, 7, 0, 3, 0, 0, 5, 7, 9, 0, 0, 0, 0, 2, 2, 0, 0, 0, 1, 0, 0, 0, 7, 1, 0, 0, 0, 0, 2, 3, 6, 0, 0, 3, 0, 6, 0, 0, 1, 0, 0, 9, 0, 2, 0, 0, 0, 6, 4, 0, 0, 0, 0, 0, 9, 1, 0, 0, 3];
+  const SOLUTION = [5, 8, 1, 3, 2, 6, 9, 7, 4, 3, 7, 4, 1, 5, 9, 2, 8, 6, 6, 2, 9, 8, 4, 7, 5, 3, 1, 4, 5, 7, 9, 6, 3, 8, 1, 2, 2, 6, 3, 5, 1, 8, 4, 9, 7, 1, 9, 8, 4, 7, 2, 3, 6, 5, 7, 3, 5, 6, 8, 4, 1, 2, 9, 9, 1, 2, 7, 3, 5, 6, 4, 8, 8, 4, 6, 2, 9, 1, 7, 5, 3];
 
   function isComplete(values) {
     return values.every(v => Number(v) >= 1 && Number(v) <= 9);
@@ -36,10 +37,17 @@
 
   const values = PUZZLE.slice();
   const undoStack = [];
-  let selected = PUZZLE.findIndex(v => v === 0);
+  let selected = 0;
 
   function rowOf(index) { return Math.floor(index / 9); }
   function colOf(index) { return index % 9; }
+  function boxOf(index) {
+    return Math.floor(rowOf(index) / 3) * 3 + Math.floor(colOf(index) / 3);
+  }
+
+  function currentValue(index) {
+    return values[index] || 0;
+  }
 
   function setStatus(message, type) {
     statusEl.textContent = message;
@@ -54,31 +62,23 @@
       const cell = document.createElement('button');
       cell.type = 'button';
       cell.className = 'cell';
+      if (PUZZLE[i] !== 0) cell.classList.add('given');
       cell.dataset.index = String(i);
       cell.setAttribute('role', 'gridcell');
-
-      if (PUZZLE[i] !== 0) {
-        cell.classList.add('given');
-        cell.disabled = true;
-        cell.textContent = String(PUZZLE[i]);
-        cell.setAttribute('aria-label', `Row ${row + 1}, column ${col + 1}, clue ${PUZZLE[i]}`);
-      } else {
-        cell.setAttribute('aria-label', `Row ${row + 1}, column ${col + 1}, empty`);
-        cell.addEventListener('click', () => selectCell(i));
-      }
 
       if (col === 2 || col === 5) cell.classList.add('box-right');
       if (row === 2 || row === 5) cell.classList.add('box-bottom');
       if (col === 8) cell.classList.add('last-col');
       if (row === 8) cell.classList.add('last-row');
 
+      cell.addEventListener('click', () => selectCell(i));
       gridEl.appendChild(cell);
     }
     render();
+    selectCell(PUZZLE.findIndex(v => v === 0) !== -1 ? PUZZLE.findIndex(v => v === 0) : 0);
   }
 
   function selectCell(index) {
-    if (PUZZLE[index] !== 0) return;
     selected = index;
     render();
     const cell = gridEl.children[index];
@@ -91,8 +91,11 @@
   }
 
   function enterNumber(number) {
-    if (selected < 0 || PUZZLE[selected] !== 0) {
-      setStatus('Select an empty cell first.');
+    if (selected < 0) return;
+    if (PUZZLE[selected] !== 0) {
+      const value = PUZZLE[selected];
+      setStatus(`This is a clue cell and cannot be changed. Matching digit ${value} is highlighted.`);
+      render();
       return;
     }
     const next = Number(number);
@@ -106,11 +109,14 @@
     clearWrongMarks();
     setStatus('Number entered. Continue solving, or press Check when ready.');
     render();
-    moveToNextEmpty();
   }
 
   function eraseSelected() {
-    if (selected < 0 || PUZZLE[selected] !== 0) return;
+    if (selected < 0) return;
+    if (PUZZLE[selected] !== 0) {
+      setStatus('Original clues cannot be erased.');
+      return;
+    }
     if (values[selected] !== 0) {
       pushUndo(selected, values[selected]);
       values[selected] = 0;
@@ -133,34 +139,6 @@
     render();
   }
 
-  function moveSelection(deltaRow, deltaCol) {
-    if (selected < 0) selected = 0;
-    let r = rowOf(selected);
-    let c = colOf(selected);
-
-    for (let attempts = 0; attempts < 81; attempts++) {
-      r = (r + deltaRow + 9) % 9;
-      c = (c + deltaCol + 9) % 9;
-      const idx = r * 9 + c;
-      if (PUZZLE[idx] === 0) {
-        selectCell(idx);
-        return;
-      }
-    }
-  }
-
-  function moveToNextEmpty() {
-    if (selected < 0) return;
-    for (let step = 1; step <= 81; step++) {
-      const idx = (selected + step) % 81;
-      if (PUZZLE[idx] === 0 && values[idx] === 0) {
-        selected = idx;
-        render();
-        return;
-      }
-    }
-  }
-
   function clearWrongMarks() {
     gridEl.querySelectorAll('.wrong').forEach(el => el.classList.remove('wrong'));
   }
@@ -171,6 +149,14 @@
       const cell = gridEl.children[i];
       if (cell) cell.classList.add('wrong');
     });
+  }
+
+  function moveSelection(deltaRow, deltaCol) {
+    let r = rowOf(selected);
+    let c = colOf(selected);
+    r = (r + deltaRow + 9) % 9;
+    c = (c + deltaCol + 9) % 9;
+    selectCell(r * 9 + c);
   }
 
   function checkPuzzle() {
@@ -189,20 +175,20 @@
 
     if (isCorrect(values)) {
       clearWrongMarks();
-      setStatus('Congratulations! You solved Symmetrical Puzzle #003 correctly. 🎉', 'success');
+      setStatus('Congratulations! You solved Symmetrical Puzzle #004 correctly. 🎉', 'success');
     }
   }
 
   function resetPuzzle() {
     const hasProgress = values.some((v, i) => PUZZLE[i] === 0 && v !== 0);
-    if (hasProgress && !window.confirm('Clear all your entries and restart Puzzle #003?')) return;
+    if (hasProgress && !window.confirm('Clear all your entries and restart Puzzle #004?')) return;
 
     for (let i = 0; i < 81; i++) values[i] = PUZZLE[i];
     undoStack.length = 0;
-    selected = PUZZLE.findIndex(v => v === 0);
     clearWrongMarks();
-    setStatus('Puzzle reset. Select an empty cell to begin.');
+    setStatus('Puzzle reset. Tap or click any cell to begin.');
     render();
+    selectCell(PUZZLE.findIndex(v => v === 0) !== -1 ? PUZZLE.findIndex(v => v === 0) : 0);
   }
 
   function render() {
@@ -210,15 +196,41 @@
       const cell = gridEl.children[i];
       if (!cell) continue;
 
-      if (PUZZLE[i] === 0) {
-        cell.textContent = values[i] === 0 ? '' : String(values[i]);
-        cell.setAttribute(
-          'aria-label',
-          `Row ${rowOf(i) + 1}, column ${colOf(i) + 1}, ${values[i] === 0 ? 'empty' : 'entered ' + values[i]}`
-        );
+      const value = currentValue(i);
+      cell.textContent = value === 0 ? '' : String(value);
+      cell.classList.remove('selected', 'peer', 'same-number');
+
+      const row = rowOf(i);
+      const col = colOf(i);
+      const ariaValue = value === 0 ? 'empty' : (PUZZLE[i] !== 0 ? 'clue ' + value : 'entered ' + value);
+      cell.setAttribute('aria-label', `Row ${row + 1}, column ${col + 1}, ${ariaValue}`);
+    }
+
+    if (selected >= 0) {
+      const selectedCell = gridEl.children[selected];
+      if (selectedCell) selectedCell.classList.add('selected');
+
+      const selectedValue = currentValue(selected);
+      const selectedRow = rowOf(selected);
+      const selectedCol = colOf(selected);
+      const selectedBox = boxOf(selected);
+
+      for (let i = 0; i < 81; i++) {
+        if (i !== selected) {
+          if (rowOf(i) === selectedRow || colOf(i) === selectedCol || boxOf(i) === selectedBox) {
+            gridEl.children[i].classList.add('peer');
+          }
+          if (selectedValue !== 0 && currentValue(i) === selectedValue) {
+            gridEl.children[i].classList.add('same-number');
+          }
+        }
       }
 
-      cell.classList.toggle('selected', i === selected && PUZZLE[i] === 0);
+      if (selectedValue !== 0) {
+        setStatus(`Digit ${selectedValue} selected. Matching digits are highlighted.`);
+      } else {
+        setStatus('Empty cell selected. Row, column, and 3×3 box are highlighted.');
+      }
     }
   }
 

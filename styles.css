@@ -1,3 +1,4 @@
+
 :root {
   --navy: #0d1b4c;
   --navy-2: #162d6b;
@@ -8,7 +9,10 @@
   --paper: #ffffff;
   --bg: #f4f7fb;
   --soft-line: #a9b4ca;
-  --selected: #fff0a8;
+  --selected: #ffe692;
+  --peer: #eef3fb;
+  --same-number: #dce8ff;
+  --same-number-given: #d4e3ff;
   --wrong: #ffe0e0;
   --wrong-ink: #a21b1b;
   --success: #e7f7ed;
@@ -18,7 +22,6 @@
 
 * { box-sizing: border-box; }
 html { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--ink); }
-
 body {
   margin: 0;
   min-height: 100vh;
@@ -26,7 +29,6 @@ body {
     radial-gradient(circle at top right, rgba(244,189,25,.16), transparent 28rem),
     linear-gradient(180deg, #ffffff 0, var(--bg) 24rem);
 }
-
 button, a { font: inherit; }
 button { touch-action: manipulation; }
 
@@ -35,7 +37,6 @@ button { touch-action: manipulation; }
   margin: 0 auto;
   padding: 28px 18px 42px;
 }
-
 .hero { text-align: center; margin-bottom: 18px; }
 
 .eyebrow {
@@ -49,7 +50,6 @@ button { touch-action: manipulation; }
   font-weight: 800;
   letter-spacing: .08em;
 }
-
 .hero h1 {
   color: var(--navy);
   margin: 13px 0 6px;
@@ -57,9 +57,7 @@ button { touch-action: manipulation; }
   line-height: 1.03;
   letter-spacing: -.035em;
 }
-
 .hero h1 span { color: #e4a900; }
-
 .meta {
   margin: 8px 0 0;
   color: var(--muted);
@@ -74,7 +72,6 @@ button { touch-action: manipulation; }
   box-shadow: var(--shadow);
   border: 1px solid #e5eaf3;
 }
-
 .sudoku-grid {
   width: min(100%, 660px);
   aspect-ratio: 1;
@@ -85,7 +82,6 @@ button { touch-action: manipulation; }
   border: 4px solid var(--navy);
   background: var(--navy);
 }
-
 .cell {
   min-width: 0;
   min-height: 0;
@@ -102,28 +98,25 @@ button { touch-action: manipulation; }
   border-radius: 0;
   outline: none;
 }
-
 .cell.given {
   color: var(--navy);
   font-weight: 900;
-  cursor: default;
 }
-
+.cell.peer { background: var(--peer); }
+.cell.same-number { background: var(--same-number); }
+.cell.given.same-number { background: var(--same-number-given); }
+.cell.selected {
+  background: var(--selected) !important;
+  box-shadow: inset 0 0 0 3px var(--gold);
+}
+.cell.wrong {
+  background: var(--wrong) !important;
+  color: var(--wrong-ink);
+}
 .cell.box-right { border-right: 4px solid var(--navy); }
 .cell.box-bottom { border-bottom: 4px solid var(--navy); }
 .cell.last-col { border-right: 0; }
 .cell.last-row { border-bottom: 0; }
-
-.cell.selected {
-  background: var(--selected);
-  box-shadow: inset 0 0 0 3px var(--gold);
-}
-
-.cell.wrong {
-  background: var(--wrong);
-  color: var(--wrong-ink);
-}
-
 .cell:focus-visible {
   box-shadow: inset 0 0 0 4px var(--gold);
   z-index: 2;
@@ -144,7 +137,6 @@ button { touch-action: manipulation; }
   font-weight: 700;
   padding: 10px 14px;
 }
-
 .status.success { background: var(--success); color: var(--success-ink); }
 .status.error { background: var(--wrong); color: var(--wrong-ink); }
 
@@ -155,7 +147,6 @@ button { touch-action: manipulation; }
   grid-template-columns: repeat(9, 1fr);
   gap: 7px;
 }
-
 .keypad button {
   min-height: 54px;
   border: 2px solid #d5ddeb;
@@ -166,7 +157,6 @@ button { touch-action: manipulation; }
   font-weight: 900;
   cursor: pointer;
 }
-
 .keypad button:hover,
 .keypad button:focus-visible {
   border-color: var(--gold);
@@ -181,7 +171,6 @@ button { touch-action: manipulation; }
   grid-template-columns: repeat(4, 1fr);
   gap: 9px;
 }
-
 .actions button {
   min-height: 50px;
   border-radius: 12px;
@@ -189,19 +178,16 @@ button { touch-action: manipulation; }
   font-weight: 800;
   cursor: pointer;
 }
-
 .actions .primary {
   background: var(--navy);
   color: white;
   border: 2px solid var(--navy);
 }
-
 .actions .secondary {
   background: white;
   color: var(--navy);
   border: 2px solid #cfd8e8;
 }
-
 .actions button:hover,
 .actions button:focus-visible {
   border-color: var(--gold);
@@ -228,7 +214,6 @@ button { touch-action: manipulation; }
   justify-content: space-between;
   align-items: center;
 }
-
 .book-kicker {
   color: #ffd54a;
   margin: 0 0 5px;
@@ -236,14 +221,11 @@ button { touch-action: manipulation; }
   font-size: .85rem;
   letter-spacing: .08em;
 }
-
 .book-card h2 {
   margin: 0 0 4px;
   font-size: clamp(1.5rem, 4vw, 2.2rem);
 }
-
 .book-card p:not(.book-kicker) { margin: 0; color: #e5e9f5; }
-
 .amazon-button {
   flex: 0 0 auto;
   display: inline-flex;
@@ -258,13 +240,11 @@ button { touch-action: manipulation; }
   font-weight: 900;
   text-align: center;
 }
-
 .amazon-button:hover,
 .amazon-button:focus-visible {
   background: #ffd24e;
   outline: 3px solid white;
 }
-
 footer {
   text-align: center;
   color: var(--muted);
@@ -296,7 +276,6 @@ footer {
   .book-card { flex-direction: column; text-align: center; }
   .amazon-button { width: 100%; }
 }
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; }
 }
