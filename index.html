@@ -4,64 +4,47 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d1b4c">
-  <meta name="description" content="Sue D. Oku's Symmetrical Puzzle #004 — a free interactive 9x9 Sudoku puzzle.">
-  <title>Sue D. Oku's Symmetrical Puzzle #004</title>
-  <link rel="stylesheet" href="styles.css?v=004">
+  <meta name="description" content="Sue D. Oku's Symmetrical Puzzle #005 — a free interactive Sudoku puzzle.">
+  <title>Sue D. Oku's Symmetrical Puzzle #005</title>
+  <link rel="stylesheet" href="styles.css?v=005">
 </head>
 <body>
-  <main class="page-shell">
-    <header class="hero">
-      <div class="eyebrow">TODAY'S FREE PUZZLE</div>
-      <h1>Sue D. Oku’s <span>Symmetrical Puzzle #004</span></h1>
-      <p class="meta">Medium+ · 31 clues · 180° rotational symmetry</p>
-    </header>
+<main class="page-shell">
+  <header class="hero">
+    <div class="eyebrow">TODAY'S FREE PUZZLE</div>
+    <h1>Sue D. Oku’s <span>Symmetrical Puzzle #005</span></h1>
+    <p class="meta">Medium+ · 32 clues · 180° rotational symmetry</p>
+  </header>
 
-    <section class="game-card" aria-labelledby="game-title">
-      <h2 id="game-title" class="sr-only">Interactive Sudoku grid</h2>
-      <div id="sudoku-grid" class="sudoku-grid" role="grid" aria-label="Interactive 9 by 9 Sudoku puzzle"></div>
+  <section class="game-card">
+    <div id="sudoku-grid" class="sudoku-grid" role="grid" aria-label="Interactive 9 by 9 Sudoku puzzle"></div>
+    <div id="status" class="status" aria-live="polite">Tap or click any cell to begin.</div>
 
-      <div id="status" class="status" aria-live="polite">
-        Tap or click any cell. Matching digits are highlighted automatically.
-      </div>
+    <div class="keypad" aria-label="Number keypad">
+      <button data-number="1">1</button><button data-number="2">2</button><button data-number="3">3</button>
+      <button data-number="4">4</button><button data-number="5">5</button><button data-number="6">6</button>
+      <button data-number="7">7</button><button data-number="8">8</button><button data-number="9">9</button>
+    </div>
 
-      <div class="keypad" aria-label="Number keypad">
-        <button type="button" data-number="1">1</button>
-        <button type="button" data-number="2">2</button>
-        <button type="button" data-number="3">3</button>
-        <button type="button" data-number="4">4</button>
-        <button type="button" data-number="5">5</button>
-        <button type="button" data-number="6">6</button>
-        <button type="button" data-number="7">7</button>
-        <button type="button" data-number="8">8</button>
-        <button type="button" data-number="9">9</button>
-      </div>
+    <div class="actions">
+      <button id="erase-btn" class="secondary">Erase</button>
+      <button id="undo-btn" class="secondary">Undo</button>
+      <button id="check-btn" class="primary">Check</button>
+      <button id="reset-btn" class="secondary">Reset</button>
+    </div>
 
-      <div class="actions">
-        <button type="button" id="erase-btn" class="secondary">Erase</button>
-        <button type="button" id="undo-btn" class="secondary">Undo</button>
-        <button type="button" id="check-btn" class="primary">Check</button>
-        <button type="button" id="reset-btn" class="secondary">Reset</button>
-      </div>
+    <p class="keyboard-help">Tap any filled digit to highlight matching digits, plus its row, column, and 3×3 box.</p>
+  </section>
 
-      <p class="keyboard-help">New feature: select any filled cell to highlight matching digits, plus its row, column, and 3×3 box.</p>
-    </section>
-
-    <section class="book-card" aria-label="Sue D. Oku book">
-      <div>
-        <p class="book-kicker">ENJOYED THE CHALLENGE?</p>
-        <h2>99 9x9 Sudoku Puzzles</h2>
-        <p>A progressive collection from Easy to Hard, with solutions.</p>
-      </div>
-      <a class="amazon-button" href="https://www.amazon.com/dp/B0HH83YBGB" target="_blank" rel="noopener noreferrer">
-        View the book on Amazon
-      </a>
-    </section>
-
-    <footer>
-      <strong>Sue D. Oku</strong> · Original Sudoku puzzles & symmetrical challenges
-    </footer>
-  </main>
-
-  <script src="app.js?v=004"></script>
+  <section class="book-card">
+    <div>
+      <p class="book-kicker">ENJOYED THE CHALLENGE?</p>
+      <h2>99 9x9 Sudoku Puzzles</h2>
+      <p>A progressive collection from Easy to Hard, with solutions.</p>
+    </div>
+    <a class="amazon-button" href="https://www.amazon.com/dp/B0HH83YBGB" target="_blank" rel="noopener noreferrer">View the book on Amazon</a>
+  </section>
+</main>
+<script src="app.js?v=005"></script>
 </body>
 </html>
