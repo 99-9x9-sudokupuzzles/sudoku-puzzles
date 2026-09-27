@@ -2,8 +2,8 @@
 (function(){
 'use strict';
 
-const PUZZLE = [0, 5, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 7, 0, 2, 0, 0, 0, 0, 4, 1, 9, 0, 6, 5, 7, 0, 0, 0, 9, 3, 0, 4, 6, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 4, 5, 0, 7, 8, 0, 0, 0, 1, 3, 2, 0, 9, 7, 6, 0, 0, 0, 0, 1, 0, 8, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 4, 0];
-const SOLUTION = [9, 5, 7, 4, 1, 3, 2, 8, 6, 8, 3, 6, 7, 5, 2, 9, 1, 4, 2, 4, 1, 9, 8, 6, 5, 7, 3, 1, 8, 9, 3, 2, 4, 6, 5, 7, 3, 7, 5, 8, 6, 1, 4, 2, 9, 6, 2, 4, 5, 9, 7, 8, 3, 1, 5, 1, 3, 2, 4, 9, 7, 6, 8, 4, 6, 2, 1, 7, 8, 3, 9, 5, 7, 9, 8, 6, 3, 5, 1, 4, 2];
+const PUZZLE = [0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 5, 7, 0, 0, 0, 3, 4, 0, 6, 4, 0, 0, 0, 0, 0, 8, 5, 0, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 0, 6, 0, 4, 0, 0, 0, 0, 0, 3, 0, 4, 0, 0, 0, 0, 3, 0, 8, 0, 5, 0, 7, 0, 1, 9, 8, 0, 7, 0, 5, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 9];
+const SOLUTION = [3, 8, 2, 5, 4, 9, 1, 6, 7, 9, 5, 7, 1, 8, 6, 3, 4, 2, 6, 4, 1, 7, 2, 3, 9, 8, 5, 4, 2, 3, 9, 5, 8, 7, 1, 6, 8, 1, 5, 2, 6, 7, 4, 9, 3, 7, 6, 9, 3, 1, 4, 2, 5, 8, 2, 3, 4, 8, 9, 5, 6, 7, 1, 1, 9, 8, 6, 7, 2, 5, 3, 4, 5, 7, 6, 4, 3, 1, 8, 2, 9];
 
 const gridEl = document.getElementById('sudoku-grid');
 const statusEl = document.getElementById('status');
@@ -117,7 +117,7 @@ function celebrateIfSolved(){
   if(isComplete() && isCorrect()){
     stopTimer();
     setStatus(
-      'Congratulations! You solved Symmetrical Puzzle #014 in ' +
+      'Congratulations! You solved Symmetrical Puzzle #007 in ' +
       formatElapsed(finalElapsedMs) + '. 🎉',
       'success'
     );
@@ -233,7 +233,7 @@ document.getElementById('check-btn').onclick = () => {
 document.getElementById('reset-btn').onclick = () => {
   if(timerStopped) return;
 
-  if(confirm('Clear all your entries and restart Puzzle #014? The timer will NOT reset.')){
+  if(confirm('Clear all your entries and restart Puzzle #007? The timer will NOT reset.')){
     for(let i=0;i<81;i++) values[i] = PUZZLE[i];
     undoStack.length = 0;
     selected = PUZZLE.findIndex(v => v === 0);
