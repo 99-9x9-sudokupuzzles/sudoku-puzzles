@@ -1,1 +1,1 @@
-Puzzle #028
+Puzzle #028 — 26 clues, double-axis symmetry.
